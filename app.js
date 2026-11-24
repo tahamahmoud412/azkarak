@@ -286,6 +286,27 @@
   $("#resetBtn").addEventListener("click", reset);
   $("#resetBtn2").addEventListener("click", reset);
 
+  // ---------- تطبيق على الموبايل (PWA) ----------
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+  }
+  // زرار «تثبيت» بيظهر بس لما المتصفح يسمح بالتثبيت (أندرويد وكروم على الكمبيوتر)
+  let installPrompt = null;
+  const installBtn = $("#installBtn");
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    installPrompt = e;
+    installBtn.hidden = false;
+  });
+  installBtn.addEventListener("click", async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    installPrompt = null;
+    installBtn.hidden = true;
+  });
+  window.addEventListener("appinstalled", () => { installBtn.hidden = true; });
+
   // ---------- start ----------
   loadProgress();
   loadData()
