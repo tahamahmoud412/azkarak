@@ -257,6 +257,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .foot p { margin: .3rem 0; }
 .foot a { color: var(--accent); }
 .sadaqa { font-weight: 500; }
+.copy {
+  margin-top: .9rem !important;
+  padding-top: .8rem;
+  border-top: 1px solid var(--line);
+  font-size: .8rem;
+}
+.copy a { text-decoration: none; font-weight: 700; }
 .link-btn {
   border: 0;
   background: none;
