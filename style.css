@@ -67,6 +67,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
   margin-inline: auto;
 }
 .top-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { display: flex; align-items: center; gap: .6rem; }
+.logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 11px;
+  box-shadow: 0 2px 8px rgba(20, 26, 48, .25);
+  flex-shrink: 0;
+}
 .title {
   margin: 0;
   font-family: "Amiri", serif;
