@@ -180,7 +180,6 @@
 
   function render() {
     document.body.dataset.time = time;
-    $("#titleTime").textContent = time === "morning" ? "الصباح" : "المساء";
     $("#doneTime").textContent = time === "morning" ? "الصباح" : "المساء";
     document.querySelectorAll(".tab").forEach((t) => t.setAttribute("aria-selected", String(t.dataset.time === time)));
 
