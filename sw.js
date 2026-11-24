@@ -1,6 +1,6 @@
 // Service worker: بيخلي التطبيق يفتح ويشتغل من غير نت.
 // الاستراتيجية: نجيب من النت الأول (علشان التحديثات توصل)، ولو مفيش نت نرجع للنسخة المحفوظة.
-const CACHE = "azkarak-v1";
+const CACHE = "azkarak-v2";
 const SHELL = [
   "./",
   "index.html",

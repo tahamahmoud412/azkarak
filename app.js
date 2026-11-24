@@ -290,22 +290,59 @@
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
   }
-  // زرار «تثبيت» بيظهر بس لما المتصفح يسمح بالتثبيت (أندرويد وكروم على الكمبيوتر)
+  // زرار «تثبيت»: بيظهر دايمًا على الموبايل (طالما التطبيق مش متثبّت ومفتوح منه).
+  // لو المتصفح بيدعم التثبيت المباشر (Chrome أندرويد) بنفتح نافذة التثبيت على طول،
+  // غير كده (آيفون، أو متصفح واتساب/فيسبوك) بنعرض الخطوات المناسبة للجهاز.
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isAndroid = /Android/i.test(ua);
+  const inAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Line\/|Snapchat|TikTok|; wv\)/i.test(ua);
+  const isStandalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+
   let installPrompt = null;
   const installBtn = $("#installBtn");
+  const sheet = $("#installSheet");
+  const showBtn = () => { installBtn.hidden = isStandalone() || !(installPrompt || isIOS || isAndroid); };
+  showBtn();
+
   window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
     installPrompt = e;
-    installBtn.hidden = false;
+    showBtn();
   });
+
+  function installSteps() {
+    if (inAppBrowser) return [
+      "إنت فاتح اللينك من جوه تطبيق تاني (زي فيسبوك أو إنستجرام)، وده مش بيسمح بالتثبيت.",
+      isIOS ? "دوس على ⋯ أو زرار المشاركة واختار «فتح في Safari»." : "دوس على ⋮ فوق واختار «فتح في Chrome».",
+      "وبعدها دوس «تثبيت» تاني.",
+    ];
+    if (isIOS) return [
+      "دوس زرار المشاركة ⬆️ تحت في Safari.",
+      "انزل واختار «إضافة إلى الشاشة الرئيسية» (Add to Home Screen).",
+      "دوس «إضافة»، وهتلاقي «أذكارك» على الشاشة.",
+    ];
+    return [
+      "دوس على ⋮ فوق على اليمين في Chrome.",
+      "اختار «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».",
+      "دوس «تثبيت»، وهتلاقي «أذكارك» مع تطبيقاتك.",
+    ];
+  }
+
   installBtn.addEventListener("click", async () => {
-    if (!installPrompt) return;
-    installPrompt.prompt();
-    await installPrompt.userChoice;
-    installPrompt = null;
-    installBtn.hidden = true;
+    if (installPrompt) {
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      showBtn();
+      return;
+    }
+    $("#installSteps").replaceChildren(...installSteps().map((s) => el("li", {}, s)));
+    sheet.showModal();
   });
-  window.addEventListener("appinstalled", () => { installBtn.hidden = true; });
+  $("#installClose").addEventListener("click", () => sheet.close());
+  sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
+  window.addEventListener("appinstalled", () => { installPrompt = null; installBtn.hidden = true; });
 
   // ---------- start ----------
   loadProgress();
