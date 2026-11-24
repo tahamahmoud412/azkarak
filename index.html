@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>أذكار الصباح والمساء</title>
+  <meta name="description" content="أذكار الصباح والمساء من كتاب حصن المسلم — بدون إعلانات، صدقة جارية.">
+  <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#11161f" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-time="morning">
+  <header class="top">
+    <div class="top-inner">
+      <h1 class="title">أذكار <span id="titleTime">الصباح</span></h1>
+      <div class="tools">
+        <button class="icon-btn" id="fontDown" aria-label="تصغير الخط">ا-</button>
+        <button class="icon-btn" id="fontUp" aria-label="تكبير الخط">ا+</button>
+        <button class="icon-btn" id="themeBtn" aria-label="تبديل الوضع الليلي">◐</button>
+      </div>
+    </div>
+
+    <nav class="tabs" role="tablist">
+      <button role="tab" class="tab" data-time="morning" aria-selected="true">☀️ الصباح</button>
+      <button role="tab" class="tab" data-time="evening" aria-selected="false">🌙 المساء</button>
+    </nav>
+
+    <div class="progress" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+    <p class="progress-text" id="progressText"></p>
+  </header>
+
+  <main id="list" class="list" aria-live="polite">
+    <p class="status">جارٍ تحميل الأذكار…</p>
+  </main>
+
+  <section class="done" id="doneBox" hidden>
+    <p class="done-title">تقبّل الله منك 🤍</p>
+    <p class="done-sub">أتممت أذكار <span id="doneTime">الصباح</span></p>
+    <button class="btn" id="resetBtn2">ابدأ من جديد</button>
+  </section>
+
+  <footer class="foot">
+    <button class="link-btn" id="resetBtn">إعادة العدّ</button>
+    <p>المصدر: كتاب <a href="https://www.hisnmuslim.com/" target="_blank" rel="noopener">حصن المسلم</a> للشيخ سعيد بن علي بن وهف القحطاني رحمه الله.</p>
+    <p class="sadaqa">صدقة جارية — بلا إعلانات ولا تتبّع. اللهم اجعله في ميزان حسنات كل من ساهم فيه ونشره.</p>
+  </footer>
+
+  <script src="virtues.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
