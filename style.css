@@ -277,7 +277,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   gap: .55rem;
 }
 
-/* توقيع طه وشهد: بيترسم بالقلم لما الفوتر يظهر، والنقطة بتنقط في الآخر */
+/* توقيع طه وشهد */
 .sig { display: inline-flex; line-height: 0; }
 .sig svg { width: 3.2rem; height: 3.4rem; overflow: visible; }
 .sig-line {
@@ -286,25 +286,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
 }
-.sig-drop {
-  fill: #d9a03a;
-  opacity: 0;
-  transform: translateY(-5px) scale(.4);
-  transform-box: fill-box;
-  transform-origin: 50% 0;
-}
-.sig.drawn .sig-line { animation: sig-draw 2.4s cubic-bezier(.55, .1, .35, 1) forwards; }
-.sig.drawn .sig-drop { animation: sig-drip .7s 2.3s cubic-bezier(.3, 1.6, .5, 1) forwards; }
-@keyframes sig-draw { to { stroke-dashoffset: 0; } }
-@keyframes sig-drip { to { opacity: 1; transform: none; } }
-
-@media (prefers-reduced-motion: reduce) {
-  .sig-line { stroke-dashoffset: 0; animation: none !important; }
-  .sig-drop { opacity: 1; transform: none; animation: none !important; }
-}
+.sig-drop { fill: #d9a03a; }
 .link-btn {
   border: 0;
   background: none;

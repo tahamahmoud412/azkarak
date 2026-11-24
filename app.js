@@ -286,24 +286,10 @@
   $("#resetBtn").addEventListener("click", reset);
   $("#resetBtn2").addEventListener("click", reset);
 
-  // ---------- توقيع الفوتر ----------
-  // بيترسم أول ما يظهر على الشاشة، ولو عدّيت عليه بالماوس بيترسم تاني
-  // (بيبدأ بعد ما الأذكار تتحمّل، علشان الفوتر ما يبانش لحظة التحميل ويترسم بدري)
-  function watchSignature() {
-    const sig = $(".sig");
-    if (!sig) return;
-    const draw = () => { sig.classList.remove("drawn"); void sig.offsetWidth; sig.classList.add("drawn"); };
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { draw(); io.disconnect(); } }, { threshold: 0.8 });
-      io.observe(sig);
-    } else draw();
-    sig.addEventListener("mouseenter", draw);
-  }
-
   // ---------- start ----------
   loadProgress();
   loadData()
-    .then((data) => { items = parse(data); render(); requestAnimationFrame(watchSignature); })
+    .then((data) => { items = parse(data); render(); })
     .catch(() => {
       list.replaceChildren(el("p", { class: "status" }, "تعذّر تحميل الأذكار، تأكد من الاتصال بالإنترنت ثم أعد المحاولة."));
     });
